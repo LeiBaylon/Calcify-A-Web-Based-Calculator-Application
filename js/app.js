@@ -1,7 +1,7 @@
 // Main App Controller
 class CalculatorApp {
     constructor() {
-        this.currentCalculator = 'home';
+        this.currentCalculator = 'basic';
         this.theme = 'light';
         
         this.init();
@@ -32,8 +32,8 @@ class CalculatorApp {
         splash.classList.add('hidden');
         mainApp.classList.remove('hidden');
         
-        // Initialize with home page visible
-        this.switchCalculator('home');
+        // Initialize with basic calculator visible by default
+        this.switchCalculator('basic');
         
         // Remove splash screen from DOM after animation
         setTimeout(() => {
@@ -220,10 +220,10 @@ class CalculatorApp {
             return;
         }
 
-        // Calculator switching: Ctrl/Cmd + 1-6
-        if (ctrl && key >= '1' && key <= '6') {
+        // Calculator switching: Ctrl/Cmd + 1-7
+        if (ctrl && key >= '1' && key <= '7') {
             e.preventDefault();
-            const calculators = ['basic', 'scientific', 'programming', 'conversion', 'currency', 'formulas'];
+            const calculators = ['basic', 'scientific', 'programming', 'conversion', 'currency', 'formulas', 'learning'];
             const index = parseInt(key) - 1;
             if (calculators[index]) {
                 this.switchCalculator(calculators[index]);
@@ -372,6 +372,16 @@ class CalculatorApp {
                     window.currencyCalculator.bindEvents();
                 }
                 break;
+            case 'learning':
+                if (window.learningHub && window.learningHub.renderAll) {
+                    window.learningHub.renderAll();
+                }
+                break;
+            case 'history-manager':
+                if (window.historyManagerUI && window.historyManagerUI.init) {
+                    window.historyManagerUI.init();
+                }
+                break;
         }
     }
 
@@ -395,21 +405,26 @@ class CalculatorApp {
     }
 
     updateHomePageStats() {
-        const totalCalculationsElement = document.querySelector('.stat-item .stat-number');
-        const calculatorsAvailableElement = document.querySelectorAll('.stat-item .stat-number')[1];
-        const formulasAvailableElement = document.querySelectorAll('.stat-item .stat-number')[2];
+        const statNumbers = document.querySelectorAll('.hero-stats .stat-number');
+        if (!statNumbers.length) return;
 
-        if (totalCalculationsElement && window.historyManager) {
-            const totalCalculations = Object.values(window.historyManager.history).reduce((total, history) => total + history.length, 0);
-            totalCalculationsElement.textContent = totalCalculations;
-        }
+        const calculatorsAvailableElement = statNumbers[0];
+        const formulasAvailableElement = statNumbers[1];
+        const totalCalculationsElement = statNumbers[2];
 
         if (calculatorsAvailableElement) {
-            calculatorsAvailableElement.textContent = '6';
+            calculatorsAvailableElement.textContent = String(document.querySelectorAll('.calculator-nav .nav-btn').length - 1);
         }
 
-        if (formulasAvailableElement) {
-            formulasAvailableElement.textContent = '20+';
+        if (formulasAvailableElement && window.formulasManager && window.formulasManager.getStatistics) {
+            const formulaStats = window.formulasManager.getStatistics();
+            formulasAvailableElement.textContent = `${formulaStats.totalFormulas}+`;
+        }
+
+        if (totalCalculationsElement && window.historyManager) {
+            const totalCalculations = Object.values(window.historyManager.history)
+                .reduce((total, history) => total + history.length, 0);
+            totalCalculationsElement.textContent = String(totalCalculations);
         }
     }
 
