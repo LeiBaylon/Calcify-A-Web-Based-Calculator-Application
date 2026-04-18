@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/history-new.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -90,6 +90,10 @@
             <button class="nav-btn" data-calculator="formulas">
                 <i class="fas fa-book"></i>
                 <span>Formulas</span>
+            </button>
+            <button class="nav-btn" data-calculator="learning">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Learning Hub</span>
             </button>
         </nav>
 
@@ -210,6 +214,34 @@
                                 <span class="feature-tag">Calculus</span>
                             </div>
                         </div>
+
+                        <div class="calc-card" data-calculator="learning">
+                            <div class="card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="card-title">Learning Hub</h3>
+                            <p class="card-description">Focused study workflows with drills, notes, timers, and goal tracking</p>
+                            <div class="card-features">
+                                <span class="feature-tag">Practice</span>
+                                <span class="feature-tag">Pomodoro</span>
+                                <span class="feature-tag">Notes</span>
+                                <span class="feature-tag">Study Goals</span>
+                            </div>
+                        </div>
+
+                        <div class="calc-card" data-calculator="home">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="card-title">Insights Dashboard</h3>
+                            <p class="card-description">Track your activity, monitor progress, and jump back into your most-used tools</p>
+                            <div class="card-features">
+                                <span class="feature-tag">Trends</span>
+                                <span class="feature-tag">Usage Stats</span>
+                                <span class="feature-tag">Recent Work</span>
+                                <span class="feature-tag">Productivity</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -295,7 +327,7 @@
                             </div>
                             <div class="tip-content">
                                 <h4>Keyboard Shortcuts</h4>
-                                <p>Use <kbd>Ctrl+H</kbd> to toggle history, <kbd>Ctrl+D</kbd> for dark mode, and number keys 1-6 to switch calculators</p>
+                                <p>Use <kbd>Ctrl+H</kbd> to toggle history, <kbd>Ctrl+D</kbd> for dark mode, and number keys 1-7 to switch calculators</p>
                             </div>
                         </div>
 
@@ -585,6 +617,127 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Learning Hub -->
+            <div id="learning-calculator" class="calculator-container">
+                <div class="learning-header">
+                    <h3>Learning and Productivity Hub</h3>
+                    <p>Build mastery through focused practice, guided learning, and productive study systems.</p>
+                </div>
+
+                <div class="learning-stats-grid">
+                    <div class="learning-stat-card">
+                        <span class="learning-stat-label">Practice Streak</span>
+                        <span class="learning-stat-value" id="learning-streak">0</span>
+                    </div>
+                    <div class="learning-stat-card">
+                        <span class="learning-stat-label">Accuracy</span>
+                        <span class="learning-stat-value" id="learning-accuracy">0%</span>
+                    </div>
+                    <div class="learning-stat-card">
+                        <span class="learning-stat-label">Focus Sessions</span>
+                        <span class="learning-stat-value" id="learning-sessions">0</span>
+                    </div>
+                    <div class="learning-stat-card">
+                        <span class="learning-stat-label">Tasks Done</span>
+                        <span class="learning-stat-value" id="learning-tasks-done">0</span>
+                    </div>
+                </div>
+
+                <div class="learning-grid">
+                    <section class="learning-panel">
+                        <div class="learning-panel-head">
+                            <h4><i class="fas fa-bullseye"></i> Study Goal</h4>
+                        </div>
+                        <div class="learning-controls">
+                            <input id="learning-goal-input" class="learning-input" type="text" placeholder="Example: Master trigonometric identities this week">
+                            <button id="learning-save-goal" class="btn learning-action-btn">Save Goal</button>
+                        </div>
+                        <p id="learning-active-goal" class="learning-helper-text">No goal set yet.</p>
+                    </section>
+
+                    <section class="learning-panel">
+                        <div class="learning-panel-head">
+                            <h4><i class="fas fa-clock"></i> Focus Timer</h4>
+                        </div>
+                        <div class="learning-timer-wrap">
+                            <div id="learning-timer-display" class="learning-timer-display">25:00</div>
+                            <div class="learning-controls">
+                                <select id="learning-timer-mode" class="learning-select">
+                                    <option value="25">Deep Focus (25 min)</option>
+                                    <option value="50">Long Session (50 min)</option>
+                                    <option value="10">Quick Sprint (10 min)</option>
+                                </select>
+                            </div>
+                            <div class="learning-controls learning-controls-inline">
+                                <button id="learning-timer-start" class="btn learning-action-btn">Start</button>
+                                <button id="learning-timer-pause" class="btn learning-action-btn">Pause</button>
+                                <button id="learning-timer-reset" class="btn learning-action-btn">Reset</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="learning-panel">
+                        <div class="learning-panel-head">
+                            <h4><i class="fas fa-dumbbell"></i> Practice Drill</h4>
+                        </div>
+                        <div class="learning-controls">
+                            <select id="learning-practice-type" class="learning-select">
+                                <option value="arithmetic">Arithmetic</option>
+                                <option value="algebra">Algebra</option>
+                                <option value="percentage">Percentage</option>
+                                <option value="unit">Unit Conversion</option>
+                            </select>
+                        </div>
+                        <div id="learning-question" class="learning-question">Press New Question to start.</div>
+                        <div class="learning-controls learning-controls-inline">
+                            <input id="learning-answer" class="learning-input" type="text" placeholder="Your answer">
+                            <button id="learning-submit-answer" class="btn learning-action-btn">Check</button>
+                        </div>
+                        <div class="learning-controls learning-controls-inline">
+                            <button id="learning-new-question" class="btn learning-action-btn">New Question</button>
+                            <span id="learning-feedback" class="learning-helper-text"></span>
+                        </div>
+                    </section>
+
+                    <section class="learning-panel">
+                        <div class="learning-panel-head">
+                            <h4><i class="fas fa-book-open"></i> Formula Spotlight</h4>
+                        </div>
+                        <div id="learning-formula-spotlight" class="learning-formula-spotlight">
+                            <h5 id="learning-formula-title">Loading formula...</h5>
+                            <p id="learning-formula-expression"></p>
+                            <p id="learning-formula-context"></p>
+                        </div>
+                        <div class="learning-controls learning-controls-inline">
+                            <button id="learning-next-formula" class="btn learning-action-btn">Next Formula</button>
+                            <button id="learning-open-formulas" class="btn learning-action-btn">Open Library</button>
+                        </div>
+                    </section>
+
+                    <section class="learning-panel learning-panel-wide">
+                        <div class="learning-panel-head">
+                            <h4><i class="fas fa-tasks"></i> Daily Math Tasks</h4>
+                        </div>
+                        <div class="learning-controls learning-controls-inline">
+                            <input id="learning-task-input" class="learning-input" type="text" placeholder="Add a study task">
+                            <button id="learning-add-task" class="btn learning-action-btn">Add Task</button>
+                        </div>
+                        <ul id="learning-task-list" class="learning-task-list"></ul>
+                    </section>
+
+                    <section class="learning-panel learning-panel-wide">
+                        <div class="learning-panel-head">
+                            <h4><i class="fas fa-sticky-note"></i> Smart Notes</h4>
+                        </div>
+                        <textarea id="learning-notes" class="learning-notes" placeholder="Capture insights, formulas, mistakes, and revision notes..."></textarea>
+                        <div class="learning-controls learning-controls-inline">
+                            <button id="learning-save-notes" class="btn learning-action-btn">Save Notes</button>
+                            <button id="learning-export-notes" class="btn learning-action-btn">Export Notes</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </main>
 
         <!-- History Panel -->
@@ -632,14 +785,15 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/app.js"></script>
-    <script src="js/basic-calculator.js"></script>
-    <script src="js/scientific-calculator.js"></script>
-    <script src="js/programming-calculator.js"></script>
-    <script src="js/conversion-calculator.js"></script>
-    <script src="js/currency-calculator.js"></script>
-    <script src="js/formulas.js"></script>
-    <script src="js/quotes.js"></script>
-    <script src="js/history-new.js"></script>
+    <script src="js/app.js?v=20260418"></script>
+    <script src="js/basic-calculator.js?v=20260418"></script>
+    <script src="js/scientific-calculator.js?v=20260418"></script>
+    <script src="js/programming-calculator.js?v=20260418"></script>
+    <script src="js/conversion-calculator.js?v=20260418"></script>
+    <script src="js/currency-calculator.js?v=20260418"></script>
+    <script src="js/formulas.js?v=20260418"></script>
+    <script src="js/learning-hub.js?v=20260418"></script>
+    <script src="js/quotes.js?v=20260418"></script>
+    <script src="js/history-new.js?v=20260418"></script>
 </body>
 </html>

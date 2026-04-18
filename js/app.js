@@ -1,7 +1,7 @@
 // Main App Controller
 class CalculatorApp {
     constructor() {
-        this.currentCalculator = 'basic';
+        this.currentCalculator = 'home';
         this.theme = 'light';
         
         this.init();
@@ -32,8 +32,8 @@ class CalculatorApp {
         splash.classList.add('hidden');
         mainApp.classList.remove('hidden');
         
-        // Initialize with basic calculator visible by default
-        this.switchCalculator('basic');
+        // Initialize with home page visible
+        this.switchCalculator('home');
         
         // Remove splash screen from DOM after animation
         setTimeout(() => {
@@ -375,11 +375,6 @@ class CalculatorApp {
             case 'learning':
                 if (window.learningHub && window.learningHub.renderAll) {
                     window.learningHub.renderAll();
-                }
-                break;
-            case 'history-manager':
-                if (window.historyManagerUI && window.historyManagerUI.init) {
-                    window.historyManagerUI.init();
                 }
                 break;
         }
